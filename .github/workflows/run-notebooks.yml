@@ -1,0 +1,58 @@
+name: Papermill Notebook Execution
+
+on:
+  pull_request:
+    paths:
+      - '**.ipynb'
+
+jobs:
+  run-notebooks:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Setup Miniconda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        auto-update-conda: true
+        python-version: 3.8
+        environment-file: environment.yml
+        activate-environment: onboarding
+
+    - name: Install Papermill
+      shell: bash -l {0}
+      run: |
+        conda install -c conda-forge papermill
+
+    - name: Get Changed Notebooks
+      id: get-notebooks
+      run: |
+        echo "Fetching changed notebooks..."
+        notebooks=$(git diff --name-only HEAD~1 HEAD | grep -E '*.ipynb$')
+        if [ -n "$notebooks" ]; then
+          notebooks_list=$(echo "$notebooks" | tr '\n' ',')
+          echo "Changed notebooks: $notebooks_list"
+          echo "::set-output name=notebooks::$notebooks_list"
+        else
+          echo "No notebook files were changed."
+          echo "::set-output name=notebooks::"
+        fi
+
+    - name: Run Changed Notebooks
+      shell: bash -l {0}
+      run: |
+        changed_notebooks=${{ steps.get-notebooks.outputs.notebooks }}
+        if [ -n "$changed_notebooks" ]; then
+          IFS=',' read -ra notebooks_array <<< "$changed_notebooks"
+          for notebook in "${notebooks_array[@]}"; do
+            echo "Running $notebook"
+            papermill "$notebook" "$notebook"
+            if [ $? -ne 0 ]; then
+              echo "Failed running $notebook"
+              exit 1
+            fi
+          done
+        else
+          echo "No changed notebooks to run."
+        fi

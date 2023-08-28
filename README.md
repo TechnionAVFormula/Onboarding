@@ -9,9 +9,9 @@
 - [Working with GitHub](./notebooks/introduction-to-github.ipynb)
 
 ### ROS2 Basics
-- [Introduction to ROS2](./notebooks/getting-started-with-ros.ipynb)
-- [Creating a Simple ROS2 Project](./notebooks/creating-a-ros2-project.ipynb)
-- [ROS2 with Docker](./notebooks/ros2-with-docker.ipynb)
+- [Introduction to ROS2](./notebooks/ros2/getting-started-with-ros.ipynb)
+- [Creating a Simple ROS2 Project](./notebooks/ros2/creating-a-ros2-project.ipynb)
+- [ROS2 with Docker](./notebooks/ros2/ros2-with-docker.ipynb)
 
 ### Algorithmic Modules
 #### Perception

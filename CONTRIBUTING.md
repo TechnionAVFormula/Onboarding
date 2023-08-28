@@ -22,10 +22,11 @@ Please read and adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ## How to Contribute
 1. Always branch off the `develop` branch, never `main`.
-2. Pick an issue to work on, or create a new one if the tutorial or bug you're working on does not exist.
-3. Develop your tutorial or fix the bug and then write appropriate exercises/ tests for it.
-4. Commit your changes and push to your fork.
-5. Create a pull request.
+2. try to use the following naming convention, `feature/tutorial-name` or `fix/bug-name`.
+3. Pick an issue to work on, or create a new one if the tutorial or bug you're working on does not exist.
+4. Develop your tutorial or fix the bug and then write appropriate exercises/ tests for it.
+5. Commit your changes and push to your fork.
+6. Create a pull request.
 
 ## Creating a Pull Request
 1. Make sure your code adheres to the project's coding guidelines.
